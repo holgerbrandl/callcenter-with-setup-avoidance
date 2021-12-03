@@ -61,8 +61,8 @@ public class SolverServiceTest {
     @Test
     @Timeout(60)
     void addCall() {
-        Call call1 = new Call(1L, "123-456-7891", Skill.ENGLISH, Skill.CAR_INSURANCE);
-        Call call2 = new Call(2L, "123-456-7892", Skill.ENGLISH, Skill.CAR_INSURANCE);
+        Call call1 = new Call(1L, "123-456-7891", Skill.CAR_INSURANCE);
+        Call call2 = new Call(2L, "123-456-7892", Skill.CAR_INSURANCE);
         CallCenter bestSolution = solve(dataGenerator.generateCallCenter(), () -> {
             solverService.addCall(call1);
             solverService.addCall(call2);
@@ -72,15 +72,15 @@ public class SolverServiceTest {
 
         assertThat(agentWithCalls.getAssignedCalls())
                 .containsExactlyInAnyOrder(call1, call2);
-        assertThat(agentWithCalls.getSkills()).contains(Skill.ENGLISH, Skill.CAR_INSURANCE);
+        assertThat(agentWithCalls.getSkill().equals(Skill.CAR_INSURANCE));
     }
 
     @Test
     @Timeout(60)
     void prolongCall() {
         CallCenter inputProblem = dataGenerator.generateCallCenter();
-        Call call1 = new Call(1L, "123-456-7891", Skill.ENGLISH, Skill.CAR_INSURANCE);
-        Call call2 = new Call(2L, "123-456-7892", Skill.ENGLISH, Skill.CAR_INSURANCE);
+        Call call1 = new Call(1L, "123-456-7891",  Skill.CAR_INSURANCE);
+        Call call2 = new Call(2L, "123-456-7892",  Skill.CAR_INSURANCE);
         inputProblem.getCalls().add(call1);
         inputProblem.getCalls().add(call2);
 
@@ -89,7 +89,7 @@ public class SolverServiceTest {
         });
 
         Agent agentWithCalls = getFirstAgentWithCallOrFail(bestSolution);
-        assertThat(agentWithCalls.getSkills()).contains(Skill.ENGLISH, Skill.CAR_INSURANCE);
+        assertThat(agentWithCalls.getSkill().equals(Skill.CAR_INSURANCE));
 
         assertThat(agentWithCalls.getAssignedCalls()).hasSize(2);
         Call prolongedCall = agentWithCalls.getAssignedCalls().stream()
@@ -104,8 +104,8 @@ public class SolverServiceTest {
     @Timeout(60)
     void removeCall() {
         CallCenter inputProblem = dataGenerator.generateCallCenter();
-        Call call1 = new Call(1L, "123-456-7891", Skill.ENGLISH, Skill.CAR_INSURANCE);
-        Call call2 = new Call(2L, "123-456-7892", Skill.ENGLISH, Skill.CAR_INSURANCE);
+        Call call1 = new Call(1L, "123-456-7891", Skill.CAR_INSURANCE);
+        Call call2 = new Call(2L, "123-456-7892", Skill.CAR_INSURANCE);
         inputProblem.getCalls().add(call1);
         inputProblem.getCalls().add(call2);
 
@@ -114,7 +114,7 @@ public class SolverServiceTest {
         });
 
         Agent agentWithCalls = getFirstAgentWithCallOrFail(bestSolution);
-        assertThat(agentWithCalls.getSkills()).contains(Skill.ENGLISH, Skill.CAR_INSURANCE);
+        assertThat(agentWithCalls.getSkill()).isEqualTo(Skill.CAR_INSURANCE);
 
         assertThat(agentWithCalls.getAssignedCalls()).hasSize(1);
         Call call = agentWithCalls.getAssignedCalls().get(0);

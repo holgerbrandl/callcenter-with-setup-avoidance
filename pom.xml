@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.acme</groupId>
-  <artifactId>optaplanner-quarkus-call-center-quickstart</artifactId>
+  <artifactId>call-center-with-setup-avoidance</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
@@ -104,11 +104,6 @@
       <artifactId>js-joda</artifactId>
       <version>1.11.0</version>
       <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 

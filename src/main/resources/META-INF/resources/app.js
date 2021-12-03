@@ -60,7 +60,7 @@ function printAgent(tableBody, agent) {
                 </div>
         </div>`).appendTo(agentCardBody);
 
-  printSkills(agentCardBody, agent.skills);
+  printSkills(agentCardBody, agent.skill);
 
   const callsTd = $('<td style="flex-flow:row; display: flex;">').appendTo(tableRow);
 
@@ -91,7 +91,7 @@ function printCall(callsTd, call) {
     );
 
   printTimes(callCardContainer, call);
-  printSkills(callCardContainer, call.requiredSkills);
+  printSkills(callCardContainer, call.requiredSkill);
 }
 
 function printTimes(callCardContainer, call) {
@@ -130,17 +130,18 @@ function formatDuration(duration) {
   return formattedDuration;
 }
 
-function printSkills(container, skills) {
+function printSkills(container, skill) {
   const skillRow = $('<div class="row" style="margin:4px 2px 4px 0px">');
   container.append(skillRow);
-  skills.forEach((skill) => {
+  // skills.forEach((skill) => {
     let color = skillToColorMap.get(skill);
     skillRow.append($(`
             <div class="col-xs-1 card" style="background-color:${color};margin:2px;padding:2px">
                 <span style="font-size:0.8em">${skill}</span>
             </div>`)
     );
-  });
+  // }
+  // );
 }
 
 function solve() {

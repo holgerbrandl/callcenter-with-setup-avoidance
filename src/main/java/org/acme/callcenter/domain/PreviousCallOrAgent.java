@@ -45,6 +45,9 @@ public abstract class PreviousCallOrAgent {
         return nextCall;
     }
 
+    public abstract Skill getSkill();
+
+    @SuppressWarnings("unused")
     public void setNextCall(Call nextCall) {
         this.nextCall = nextCall;
     }

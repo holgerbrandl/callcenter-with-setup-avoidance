@@ -2,10 +2,7 @@ package org.acme.callcenter.domain;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.Objects;
-import java.util.Set;
 
 import org.acme.callcenter.solver.ResponseTimeUpdatingVariableListener;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
@@ -22,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Call extends PreviousCallOrAgent {
 
     private String phoneNumber;
-    private Set<Skill> requiredSkills;
+    private Skill requiredSkill;
     private Duration duration = Duration.ZERO;
     private LocalTime startTime;
     private LocalTime pickUpTime;
@@ -49,21 +46,21 @@ public class Call extends PreviousCallOrAgent {
     public Call(long id, String phoneNumber) {
         super(id);
         this.phoneNumber = phoneNumber;
-        this.requiredSkills = EnumSet.noneOf(Skill.class);
+        this.requiredSkill = null;
         this.startTime = LocalTime.now();
     }
 
-    public Call(long id, String phoneNumber, Set<Skill> requiredSkills, int durationSeconds) {
+    public Call(long id, String phoneNumber, Skill requiredSkill, int durationSeconds) {
         super(id);
         this.phoneNumber = phoneNumber;
-        this.requiredSkills = EnumSet.copyOf(requiredSkills);
+        this.requiredSkill = requiredSkill;
         this.duration = Duration.ofSeconds(durationSeconds);
         this.startTime = LocalTime.now();
     }
 
-    public Call(long id, String phoneNumber, Skill... requiredSkills) {
+    public Call(long id, String phoneNumber, Skill requiredSkill) {
         this(id, phoneNumber);
-        this.requiredSkills.addAll(Arrays.asList(requiredSkills));
+        this.requiredSkill = requiredSkill;
     }
 
     public int getMissingSkillCount() {
@@ -71,9 +68,7 @@ public class Call extends PreviousCallOrAgent {
             return 0;
         }
 
-        return (int) requiredSkills.stream()
-                .filter(skill -> !agent.getSkills().contains(skill))
-                .count();
+        return agent.getSkill() != requiredSkill ? 1 :0;
     }
 
     @Override
@@ -94,8 +89,13 @@ public class Call extends PreviousCallOrAgent {
         return phoneNumber;
     }
 
-    public Set<Skill> getRequiredSkills() {
-        return requiredSkills;
+    public Skill getRequiredSkill() {
+        return requiredSkill;
+    }
+
+    @Override
+    public Skill getSkill() {
+        return requiredSkill;
     }
 
     public boolean isPinned() {

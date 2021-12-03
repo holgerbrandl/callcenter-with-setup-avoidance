@@ -59,12 +59,15 @@ public class ResponseTimeUpdatingVariableListener implements VariableListener<Ca
     protected void updateResponseTime(ScoreDirector<CallCenter> scoreDirector, Call call) {
         PreviousCallOrAgent previous = call.getPreviousCallOrAgent();
         Call shadowCall = call;
+
         Duration previousDurationTillPickUp = (previous == null ? null : previous.getDurationTillPickUp());
         Duration estimatedWaiting = calculateWaitingTimeEstimate(shadowCall, previousDurationTillPickUp);
+
         while (shadowCall != null) {
             scoreDirector.beforeVariableChanged(shadowCall, "estimatedWaiting");
             shadowCall.setEstimatedWaiting(estimatedWaiting);
             scoreDirector.afterVariableChanged(shadowCall, "estimatedWaiting");
+
             previousDurationTillPickUp = shadowCall.getDurationTillPickUp();
             shadowCall = shadowCall.getNextCall();
             estimatedWaiting = calculateWaitingTimeEstimate(shadowCall, previousDurationTillPickUp);

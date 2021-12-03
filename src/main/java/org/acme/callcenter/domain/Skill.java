@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Skill {
 
-    ENGLISH("EN"),
-    GERMAN("DE"),
-    SPANISH("ES"),
     CAR_INSURANCE("Car insurance"),
     LIFE_INSURANCE("Life insurance"),
-    PROPERTY_INSURANCE("Property insurance");
+    PROPERTY_INSURANCE("Property insurance"),
+    FIRE_INSURANCE("Fire insurance"),
+    THEFT_INSURANCE("Theft insurance"),
+    GUITAR_INSURANCE("Guitar insurance"),
+    JEWELERY_INSURANCE("Jewelery insurance");
 
     private String name;
 

@@ -12,26 +12,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Agent extends PreviousCallOrAgent {
 
     private String name;
-    private Set<Skill> skills;
+    private Skill skill;
 
     public Agent() {
         // Required by OptaPlanner.
     }
 
-    public Agent(long id, String name) {
+    public Agent(long id, String name, Skill skill) {
         super(id);
         this.name = name;
-        this.skills = EnumSet.noneOf(Skill.class);
-    }
-
-    public Agent(long id, String name, Set<Skill> skills) {
-        super(id);
-        this.name = name;
-        this.skills = EnumSet.copyOf(skills);
-    }
-
-    public Agent(long id, String name, Skill... skills) {
-        this(id, name, EnumSet.copyOf(Arrays.asList(skills)));
+        this.skill = skill;
     }
 
     @JsonProperty(value = "calls", access = JsonProperty.Access.READ_ONLY)
@@ -54,7 +44,7 @@ public class Agent extends PreviousCallOrAgent {
         return name;
     }
 
-    public Set<Skill> getSkills() {
-        return skills;
+    public Skill getSkill() {
+        return skill;
     }
 }
