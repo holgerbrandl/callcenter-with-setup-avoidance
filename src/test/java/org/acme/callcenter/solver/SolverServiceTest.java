@@ -72,7 +72,7 @@ public class SolverServiceTest {
 
         assertThat(agentWithCalls.getAssignedCalls())
                 .containsExactlyInAnyOrder(call1, call2);
-        assertThat(agentWithCalls.getSkill().equals(Skill.CAR_INSURANCE));
+        assertThat(agentWithCalls.getSkill()).isEqualTo(Skill.CAR_INSURANCE);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class SolverServiceTest {
         });
 
         Agent agentWithCalls = getFirstAgentWithCallOrFail(bestSolution);
-        assertThat(agentWithCalls.getSkill().equals(Skill.CAR_INSURANCE));
+        assertThat(agentWithCalls.getSkill()).isEqualTo(Skill.CAR_INSURANCE);
 
         assertThat(agentWithCalls.getAssignedCalls()).hasSize(2);
         Call prolongedCall = agentWithCalls.getAssignedCalls().stream()
@@ -109,9 +109,7 @@ public class SolverServiceTest {
         inputProblem.getCalls().add(call1);
         inputProblem.getCalls().add(call2);
 
-        CallCenter bestSolution  = solve(inputProblem, () -> {
-            solverService.removeCall(call1.getId());
-        });
+        CallCenter bestSolution  = solve(inputProblem, () -> solverService.removeCall(call1.getId()));
 
         Agent agentWithCalls = getFirstAgentWithCallOrFail(bestSolution);
         assertThat(agentWithCalls.getSkill()).isEqualTo(Skill.CAR_INSURANCE);
