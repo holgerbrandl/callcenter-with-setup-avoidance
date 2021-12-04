@@ -1,8 +1,22 @@
-= Call center real-time scheduling (Java, Quarkus, Maven)
+= Call center real-time scheduling with setup avoidance
 
 Schedule incoming calls to employees matching skills and availability.
 
-image::../../build/quickstarts-showcase/src/main/resources/META-INF/resources/screenshot/quarkus-call-center-screenshot.png[]
+Created by adopting the great example from https://github.com/kiegroup/optaplanner-quickstarts/tree/stable/use-cases/call-center
+
+Discussed in https://groups.google.com/g/optaplanner-dev/c/wnalNxLT3Jw
+
+Changes compared to the original are
+
+* Simplified `Call`s to have just one required skill
+* If 2 subsequent calls have a different required skill, a setup cost occurs (expressed via a constraint).
+
+In the current implementation imposes a setup cost used. It would be also very easy to change `getDurationTillPickUp` to model a setup-time instead.
+
+TIP: In addition to the quarkus mode, here we also include `org.acme.callcenter.CallCenterApp` to run the solver without any interface.
+
+.Example schedule of the call center. Clearly setup is avoided where possible
+image::schedule-example.png[]
 
 == Run the application with live coding
 
