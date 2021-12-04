@@ -11,7 +11,7 @@ Changes compared to the original are
 * Simplified `Call`s to have just one required skill
 * If 2 subsequent calls have a different required skill, a setup cost occurs (expressed via a constraint).
 
-In the current implementation imposes a setup cost used. It would be also very easy to change `getDurationTillPickUp` to model a setup-time instead.
+The current implementation imposes a setup cost only. This is sufficient to avoid setup via constraint. It would be also very easy to change `getDurationTillPickUp` to model a setup-time instead.
 
 TIP: In addition to the quarkus mode, here we also include `org.acme.callcenter.CallCenterApp` to run the solver without any interface.
 
