@@ -12,7 +12,7 @@ public class CallCenterConstraintsProvider implements ConstraintProvider {
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[] {
-                noRequiredSkillMissing(constraintFactory),
+//                noRequiredSkillMissing(constraintFactory),
                 minimizeWaitingTime(constraintFactory),
                 minimizeSetupChanges(constraintFactory),
         };
